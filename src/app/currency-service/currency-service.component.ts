@@ -7,14 +7,19 @@ import { Currency } from 'src/app/Currency';
 })
 export class CurrencyServiceComponent{
 
-  public currencies:Currency[] = [];
+  private currencies:Currency[] = [];
+  private lastUpdate;
 
   constructor(private http: HttpClient) {
   }
 
   public getCurrencies(){
     return this.currencies;
-}
+  }
+
+  public getLastUpdate(){
+    return this.lastUpdate;
+  }
 
   public getCurrenciesPromise() {
     return new Promise<any>((resolve, reject) => {
@@ -26,7 +31,7 @@ export class CurrencyServiceComponent{
           let currency:Currency = {rate: value, full_name: '', name: key, symbol: ''};
           this.currencies.push(currency);
         }
-
+        this.lastUpdate = data.time_last_update_utc;
         this.http.get<any>('https://restcountries.com/v3.1/all?fields=currencies').subscribe(data => {
 
           data.forEach(currency => {
@@ -37,14 +42,12 @@ export class CurrencyServiceComponent{
           })
           resolve(this.currencies);
         },
-          error => {
-            //Check if stored in browser
+        () => {
             reject();
           }
         )
       },
-        error => {
-          //Check if stored in browser
+      () => {
           reject();
         })}
     else {
