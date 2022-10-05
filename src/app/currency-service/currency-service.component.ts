@@ -25,14 +25,14 @@ export class CurrencyServiceComponent{
     return new Promise<any>((resolve, reject) => {
     if(this.currencies.length==0)
     {
-      this.http.get<any>('https://open.er-api.com/v6/latest/USD').subscribe(data => {
+      this.http.get<any>('https://open.er-api.com/v6/latest/UAH').subscribe(data => {
         for (var key in data.rates){
           var value = data.rates[key];
           let currency:Currency = {rate: value, full_name: '', name: key, symbol: ''};
           this.currencies.push(currency);
         }
         this.lastUpdate = data.time_last_update_utc;
-        this.http.get<any>('https://restcountries.com/v3.1/all?fields=currencies').subscribe(data => {
+        this.http.get<any>('https://restcountries.com/v3.1/all?fields=currencies').subscribe((data) => {
 
           data.forEach(currency => {
               let name = Object.keys(currency.currencies)[0]
@@ -41,15 +41,15 @@ export class CurrencyServiceComponent{
                 this.currencies[index] = {...this.currencies[index], full_name: currency.currencies[name].name, symbol: currency.currencies[name].symbol}
           })
           resolve(this.currencies);
-        },
         () => {
             reject();
           }
-        )
-      },
+        }),
       () => {
           reject();
-        })}
+        }
+      })
+    }
     else {
       resolve(this.currencies);
     }

@@ -33,8 +33,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   public resultTo;
   public resultInfo;
   public isResult = false;
-
   public lastUpdate;
+
+  //relate relative UAH
+  public rateUSD;
+  public rateEUR;
+  
   get from_symbol() {
     return this._from.symbol;
   }
@@ -78,8 +82,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     let result = this.amount_value*rateBase;
     this.resultFrom = this.amount_value + " " + (this._from.full_name ? this._from.full_name :  this._from.name) + " =";
     this.resultTo = (result).toFixed(5) + " " + (this.to.full_name ? this.to.full_name :  this.to.name);
-    this.resultInfo = (1).toFixed(2) + " " + this._from.name + " = " + rateBase.toFixed(6) + " " +this.to.name + '\n '
-                      +  (1).toFixed(2) + " " + this.to.name + " = " + (1/rateBase).toFixed(6) + " " +this._from.name ;
+    this.resultInfo = (1).toFixed(2) + " " + this._from.name + " = " + rateBase.toFixed(5) + " " +this.to.name + '\n '
+                      +  (1).toFixed(2) + " " + this.to.name + " = " + (1/rateBase).toFixed(5) + " " +this._from.name ;
+  }
+
+  public baseExchange(){
+
+    let currencyUSD = this.service.getCurrencies().find(item => item.name == 'USD');
+    let currencyEUR = this.service.getCurrencies().find(item => item.name == 'EUR');
+    // this.currencyEUR
+
+    this.rateEUR = (1 / currencyEUR!.rate).toFixed(2);
+    this.rateUSD = (1 / currencyUSD!.rate).toFixed(2);
   }
 
   onSubmit(): void {
@@ -94,6 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this._from = data[0];
       this.to = data[1];
       this.isDataAvailable = true
+      this.baseExchange();
     },
     () =>{
       this.failedToLoad = true;

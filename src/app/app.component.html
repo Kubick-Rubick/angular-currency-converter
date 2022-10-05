@@ -1,69 +1,83 @@
 <div class="container">
-  <div class="card">
-    <h1>Currency Converter</h1>
-    <div *ngIf="isDataAvailable">
+  
+  <header class="header-card">
+    <h2>Currency Converter</h2>
+    <div class="currency">
+      Exchange rate in Ukraine
+      <div class="currency-eur">
+        1 EUR = {{rateEUR}} UAH
+      </div>
+      <div class="currency-usd">
+        1 USD = {{rateUSD}} UAH
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="card" >
+      <h1>Currency Converter</h1>
+      <div *ngIf="isDataAvailable">
       <form name="form-exchange" (ngSubmit)="onSubmit()">
-        <div class="form-currency" #formExchange (window:resize)="windowResize()">
-          <label>Amount</label>
+      <div class="form-currency" #formExchange (window:resize)="windowResize()">
+      <label>Amount</label>
 
-          <div>
-            <div class="input-amount input-field">
-              <span class="prefix">{{from_symbol}}</span>
-              <input required lang="en-US" type="number" [(ngModel)]="amount_value" (change)="changeAmountValue()" name="amount" (focusout)="changeAmountValue()" #amount_input placeholder="Amount" step="0.01" >
-            </div>
+        <div>
+        <div class="input-amount input-field">
+          <span class="prefix">{{from_symbol}}</span>
+        <input required lang="en-US" type="number" [(ngModel)]="amount_value" (change)="changeAmountValue()" name="amount" (focusout)="changeAmountValue()" #amount_input placeholder="Amount" step="0.01" >
+        </div>
 
-          </div>
-          <label>From</label>
+        </div>
+      <label>From</label>
 
 
-          <app-currency-selector #from [selectorId]="'from'" [changeCurrency]="selectFrom"></app-currency-selector>
+      <app-currency-selector #from [selectorId]="'from'" [changeCurrency]="selectFrom"></app-currency-selector>
 
-          <div></div>
+      <div></div>
 
           <button class="switch-btn" type="button" (click)="switchCurrencies()">
             <i class="bi bi-arrow-left-right"></i>
           </button>
 
-          <label>To</label>
+      <label>To</label>
 
 
-          <app-currency-selector #to [selectorId]="'to'" [changeCurrency]="selectTo"></app-currency-selector>
-        </div>
+        <app-currency-selector #to [selectorId]="'to'" [changeCurrency]="selectTo"></app-currency-selector>
+      </div>
 
-        <div class="submit-btn" [style.width.px]="formExchange.offsetWidth" #submitBtn *ngIf="!isResult">
-          <button type="submit">Convert</button>
-        </div>
+      <div class="submit-btn" [style.width.px]="formExchange.offsetWidth" #submitBtn *ngIf="!isResult">
+        <button type="submit">Convert</button>
+      </div>
+
       </form>
-      <div class="result-currency" *ngIf="isResult">
-        <div class="result-from">
-          {{resultFrom}}
-        </div>
+        <div class="result-currency" *ngIf="isResult">
+          <div class="result-from">
+            {{resultFrom}}
+            </div>
 
-        <div class="result-to">
-          {{resultTo}}
-        </div>
-        <div class="result-info">
-          {{resultInfo}}
+            <div class="result-to">
+              {{resultTo}}
+              </div>
+              <div class="result-info">
+              {{resultInfo}}
+                </div>
         </div>
       </div>
-    </div>
-    <div class="lds-ellipsis" *ngIf="!isDataAvailable && !failedToLoad">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div *ngIf="failedToLoad" [style.text-align]="'center'">
+      <div class="lds-ellipsis"  *ngIf="!isDataAvailable && !failedToLoad"><div></div><div></div><div></div><div></div></div>
+
+      <div *ngIf="failedToLoad" [style.text-align]="'center'">
       <h2>
-        <i class="bi bi-bug-fill"></i>
-      </h2>
+        <i class="bi bi-bug-fill"></i></h2>
       <h3>Failed to load exchange rate from the server</h3>
-    </div>
+      </div>
 
-    <div class="lastUpdate" *ngIf="isResult">
-      Last updated: {{lastUpdate}}
-    </div>
+      <div class="lastUpdate" *ngIf="isResult">
+        Last updated: {{lastUpdate}}
+      </div>
 
-    <div class="madeBy">Made by <a href="https://github.com/Kubick-Rubick/angular-currency-converter" target="_blank">Alex Prokin</a></div>
-  </div>
+      <div class="madeBy">Made by <a href="https://github.com" target="_blank">Alex Prokin</a></div>
+
+    </div>
+  </main>
 </div>
+
+

@@ -7,6 +7,8 @@ $brighter-blue:#9CECFB;
 $dirty-white: #EFEFEFFF;
 $brown: #3a3636;
 
+
+
 .container{
   justify-content: center;
   position: relative;
@@ -16,10 +18,14 @@ $brown: #3a3636;
   overflow: auto;
   height: 100%;
   width: 100%;
-
+  min-height: 570px;
   max-width: none;
   @include extra-small {
     background-color: $dirty-white;
+  }
+
+  @include medium-down{
+    min-height: 710px;
   }
 }
 
@@ -42,7 +48,7 @@ $brown: #3a3636;
     color: #3a3636;
   }
   .result-to{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 1000;
     margin-top: 5px;
     margin-bottom:15px;
@@ -50,6 +56,139 @@ $brown: #3a3636;
   .result-info{
     white-space: pre;
     font-weight: 500;
+  }
+}
+
+.header-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  h2{
+    padding-right: 20px;
+  }
+  
+  padding: 20px;
+  background-color: $dirty-white;
+  box-shadow: 0 0 10px 1px rgba(0 0 0 / 20%);
+  border-radius: 15px;
+  @include extra-small {
+    margin: 0;
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    top: auto;
+    left: auto;
+    transform: none;
+
+    background-color: transparent;
+    box-shadow: none;
+
+    .currency{
+      flex-basis: 65%;
+      font-size: 14px!important;
+    }
+    h2{
+      padding-right: 10px;
+    }
+    
+  }
+  @include small-up {
+    width: 440px;
+  }
+  
+  @include large-up {
+    width: 950px;
+    padding-block: 20px;
+  }
+  @include extra-large {
+    width: 1150px;
+    padding-inline: 30px;
+    padding-block: 30px;
+  }
+  
+}
+
+.card {
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+
+  background-color: $dirty-white;
+  width: 300px;
+  height: auto;
+  box-shadow: 0 0 10px 1px rgba(0 0 0 / 20%);
+  border-radius: 15px;
+
+  
+  h1{
+    font-weight: 800;
+    margin-bottom:20px;
+
+    @include large-up {
+      margin-bottom:60px;
+    }
+
+    @include extra-small {
+      margin-bottom:40px;
+    }
+  }
+  
+  .switch-btn{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    text-align: center;
+    border-radius: 50%;
+    outline: 2px solid #d2d2d2;
+    &:hover{
+      outline: 2px solid rgb(153, 153, 245);
+    }
+
+
+    &:active {
+      i:before{
+        animation: flip 0.2s 1 linear;
+      }
+
+    }
+    @keyframes flip {
+      0% {
+        transform: rotateY(0deg);
+      }
+      50% {
+        transform: rotateY(180deg);
+      }
+      to {
+        transform: rotateY(0deg);
+      }
+    }
+  }
+
+  @include extra-small {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    top: auto;
+    left: auto;
+    transform: none;
+
+    background-color: transparent;
+    box-shadow: none;
+    
+  }
+  @include small-up {
+    width: 440px;
+  }
+
+  @include large-up {
+    width: 950px;
+    padding-block: 50px;
+  }
+  @include extra-large {
+    width: 1150px;
+    padding-inline: 130px;
+    padding-block: 50px;
   }
 }
 
@@ -71,8 +210,10 @@ $brown: #3a3636;
     font-weight: 600;
   }
   &:focus-within {
-    background-color: white;
-    outline: 2px solid rgb(153, 153, 245);
+
+      background-color: white;
+      outline: 2px solid rgb(153, 153, 245);
+
   }
 }
 
@@ -94,11 +235,15 @@ $brown: #3a3636;
     color: white;
     font-weight:500;
     background-color: $blue;
-    transition: 0.5s;
+
+
+      transition: 0.5s;
+
 
     &:hover{
       background-color: $bright-blue;
       transition: 0.5s;
+
       outline: 2px solid rgb(153, 153, 245);
       border: none;
       a, i{
@@ -108,18 +253,20 @@ $brown: #3a3636;
       }
     }
   }
+
+
 }
 
 .form-currency{
   display: grid;
   gap: 4px 16px;
   grid-auto-flow: column;
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) auto minmax(100px, 1fr);
+  grid-template-columns: minmax(80px, 1fr) minmax(80px, 0fr) auto minmax(80px, 1fr);
   grid-template-rows: auto [input-row-start] auto;
   label{
     text-align: left;
   }
-  
+
   @include extra-small {
     gap: 10px;
     text-align: center;
@@ -143,6 +290,7 @@ $brown: #3a3636;
   }
 
   @include medium-up {
+
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -161,6 +309,8 @@ $brown: #3a3636;
     grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) auto minmax(100px, 1fr);
     grid-template-rows: auto [input-row-start] auto;
   }
+
+
 }
 
 .lastUpdate{
@@ -194,91 +344,4 @@ $brown: #3a3636;
   }
 }
 
-.card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  align-items: center;
-  margin: auto;
-  padding: 20px;
 
-  background-color: $dirty-white;
-  width: 300px;
-  height: auto;
-  box-shadow: 0 0 10px 1px rgba(0 0 0 / 20%);
-  border-radius: 15px;
-
-  h1{
-    font-weight: 800;
-    margin-bottom:20px;
-
-    @include large-up {
-      margin-bottom:60px;
-    }
-
-    @include extra-small {
-      margin-bottom:40px;
-    }
-  }
-
-  .switch-btn{
-    height: 50px;
-    width: 50px;
-    margin: auto;
-    text-align: center;
-    border-radius: 50%;
-    outline: 2px solid #d2d2d2;
-    &:hover{
-      outline: 2px solid rgb(153, 153, 245);
-    }
-
-
-    &:active {
-      i:before{
-        animation: flip 0.2s 1 linear;
-      }
-
-      // animation: flip 2s 1 linear;
-    }
-    @keyframes flip {
-      0% {
-        transform: rotateY(0deg);
-      }
-      50% {
-        transform: rotateY(180deg);
-      }
-      to {
-        transform: rotateY(0deg);
-      }
-    }
-  }
-
-  transform: translate(-50%, -50%);
-
-  @include extra-small {
-    width: 100%;
-    border-radius: 0;
-    border: none;
-    top: auto;
-    left: auto;
-    transform: none;
-
-    background-color: transparent;
-    box-shadow: none;
-
-  }
-  @include small-up {
-    width: 440px;
-  }
-
-  @include large-up {
-    width: 950px;
-    padding-block: 50px;
-  }
-  @include extra-large {
-    width: 1150px;
-    padding-inline: 130px;
-    padding-block: 100px;
-  }
-}
