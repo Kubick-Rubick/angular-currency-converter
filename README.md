@@ -1,27 +1,32 @@
-# AngularCurrencyConverter
+<h1 align="center"> AngularCurrencyConverter  </h1>
+<div align="center">
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+![Angular](https://img.shields.io/badge/Angular-DD0031?logo=angular&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?logo=sass&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?logo=bootstrap&logoColor=white)
+</div>
 
-## Development server
+## About
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+💱 A simple currency converter created using Angular 14 💵.
+The project gets the currency rate from [ExchangeRate-API](https://www.exchangerate-api.com/docs/free).
 
-## Code scaffolding
+## Screenshots
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<img src="/Screenshot-1.png" alt="Currency converter"/>
 
-## Build
+<img src="/Screenshot-2.png" alt="Currency converter"/>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Features
 
-## Running unit tests
+- Allows you to quickly convert currencies in real time
+- Saves the selected currencies with the entered amount and enters the value in localStorage
+- Adapts to the size of the browser window
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Resources
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [ExchangeRate-API](https://www.exchangerate-api.com/docs/free). Currency rate source. [`https://open.er-api.com/v6/latest/UAH`](https://open.er-api.com/v6/latest/UAH)
+- [REST Countries](https://restcountries.com/). Source of information about currencies (full name, symbol). [`https://restcountries.com/v3.1/all?fields=currencies`](https://restcountries.com/v3.1/all?fields=currencies)
+- [currency-flags](https://www.npmjs.com/package/currency-flags). Flag image source.
