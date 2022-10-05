@@ -28,6 +28,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('amount_input', {static: false}) amount_input;
   @ViewChild('submitBtn', {static: false}) submitBtn;
   @ViewChild('formExchange', {static: false}) formExchange;
+
+  public resultFrom;
+  public resultTo;
+  public resultInfo;
+  public isResult = false;
+
   get from_symbol() {
     return this._from.symbol;
   }
@@ -40,24 +46,43 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public selectFrom = (currency: Currency): void =>{
     this._from=currency;
+    if(this.isResult)
+      this.exchange();
   }
 
   public selectTo = (currency: Currency): void =>{
     this.to=currency;
+    if(this.isResult)
+      this.exchange();
   }
 
   public focusOutInput(){
     this.amount_value = (Math.round( this.amount_value * 100) / 100).toFixed(2);
+    if(this.isResult)
+      this.exchange();
   }
 
   public switchCurrencies(){
-    console.log("HELLO")
     let temp : Currency = this._from;
-    console.log(temp);
-    console.log(this.to);
     this.fromCmp.selectCurrency(this.to);
     this.toCmp.selectCurrency(temp);
+    if(this.isResult)
+      this.exchange();
   }
+
+  public exchange(){
+    let rateBase = this.to.rate/this._from.rate;
+    let result = this.amount_value*rateBase;
+    this.resultFrom = this.amount_value + " " + this._from.full_name + " =";
+    this.resultTo = (result).toFixed(5) + " " + this.to.full_name;
+    this.resultInfo = (1).toFixed(2) + " " + this._from.name + " = " + rateBase + " " +this.to.name + '\n '
+                      +  (1).toFixed(2) + " " + this.to.name + " = " + 1/rateBase + " " +this._from.name ;
+  }
+
+  onSubmit(): void {
+    this.exchange();
+    this.isResult= true;
+}
 
   ngOnInit(): void {
     this.service.getCurrenciesPromise().then((data) => {
@@ -77,6 +102,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    
+
   }
 }

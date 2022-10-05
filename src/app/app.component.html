@@ -1,39 +1,53 @@
 <div class="container">
   <div class="card">
     <h1>Currency Converter</h1>
-    <form name="form-exchange" *ngIf="isDataAvailable">
-      <div class="form-currency" #formExchange (window:resize)="windowResize()">
-        <label>Amount</label>
+    <div *ngIf="isDataAvailable">
+      <form name="form-exchange" (ngSubmit)="onSubmit()">
+        <div class="form-currency" #formExchange (window:resize)="windowResize()">
+          <label>Amount</label>
 
-        <div>
-          <div class="input-amount input-field">
-            <span class="prefix">{{from_symbol}}</span>
-            <input required lang="en-US" type="number" [(ngModel)]="amount_value" name="amount"
-              (focusout)="focusOutInput()" #amount_input placeholder="Amount" step="0.01">
+          <div>
+            <div class="input-amount input-field">
+              <span class="prefix">{{from_symbol}}</span>
+              <input required lang="en-US" type="number" [(ngModel)]="amount_value" name="amount"
+                (focusout)="focusOutInput()" #amount_input placeholder="Amount" step="0.01">
+            </div>
+
           </div>
+          <label>From</label>
 
+
+          <app-currency-selector #from [selectorId]="'from'" [changeCurrency]="selectFrom"></app-currency-selector>
+
+          <div></div>
+
+          <button class="switch-btn" (click)="switchCurrencies()">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+
+          <label>To</label>
+
+
+          <app-currency-selector #to [selectorId]="'to'" [changeCurrency]="selectTo"></app-currency-selector>
         </div>
-        <label>From</label>
 
+        <div class="submit-btn" [style.width.px]="formExchange.offsetWidth" #submitBtn *ngIf="!isResult">
+          <button type="submit">Convert</button>
+        </div>
+      </form>
+      <div class="result-currency" *ngIf="isResult">
+        <div class="result-from">
+          {{resultFrom}}
+        </div>
 
-        <app-currency-selector #from [selectorId]="'from'" [changeCurrency]="selectFrom"></app-currency-selector>
-
-        <div></div>
-
-        <button class="switch-btn" (click)="switchCurrencies()">
-          <i class="bi bi-arrow-left-right"></i>
-        </button>
-
-        <label>To</label>
-
-
-        <app-currency-selector #to [selectorId]="'to'" [changeCurrency]="selectTo"></app-currency-selector>
+        <div class="result-to">
+          {{resultTo}}
+        </div>
+        <div class="result-info">
+          {{resultInfo}}
+        </div>
       </div>
-
-      <div class="submit-btn" [style.width.px]="formExchange.offsetWidth" #submitBtn>
-        <button>Convert</button>
-      </div>
-    </form>
+    </div>
     <div class="lds-ellipsis" *ngIf="!isDataAvailable && !failedToLoad">
       <div></div>
       <div></div>
