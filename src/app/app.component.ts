@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Currency} from "./Currency";
-import {CURRENCIES} from "./mock-currency";
+import {CurrencyServiceComponent} from "./currency-service/currency-service.component";
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,11 @@ import {CURRENCIES} from "./mock-currency";
 
 export class AppComponent implements OnInit, AfterViewInit {
   public title = 'currency-exchange';
-  private _from = CURRENCIES[0];
-  private to = CURRENCIES[1];
+
+  public isDataAvailable = false;
+  public failedToLoad = false;
+  private _from;
+  private to;
   public amount_value;
   @ViewChild('from') fromCmp;
   @ViewChild('to') toCmp;
@@ -28,9 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   get from_symbol() {
     return this._from.symbol;
   }
- // selectedCurrency: Currency = CURRENCIES[0];
-
-  constructor(private modalService: NgbModal, private changeDetector: ChangeDetectorRef) {
+  constructor(private modalService: NgbModal, private changeDetector: ChangeDetectorRef, public service: CurrencyServiceComponent) {
   }
 
   public open(modal: any): void {
@@ -59,6 +60,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.service.getCurrenciesPromise().then((data) => {
+      this._from = data[0];
+      this.to = data[1];
+      this.isDataAvailable = true
+    },
+      (reject) =>{
+      this.failedToLoad = true;
+      });
+
     this.amount_value=(1).toFixed(2);
   }
 
@@ -67,5 +77,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    
   }
 }
