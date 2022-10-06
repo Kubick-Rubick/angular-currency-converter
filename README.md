@@ -15,9 +15,9 @@ The project gets the currency rate from [ExchangeRate-API](https://www.exchanger
 
 ## Screenshots
 
-<img src="/Screenshot-1.png" alt="Currency converter"/>
+<img src="src/assets/image/screenshot-1.png" alt="Currency converter"/>
 
-<img src="/Screenshot-2.png" alt="Currency converter"/>
+<img src="src/assets/image/screenshot-2.png" alt="Currency converter"/>
 
 ## Features
 

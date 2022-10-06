@@ -44,18 +44,18 @@ $brown: #3a3636;
   }
 
   .result-from{
-    font-weight: 800;
+    font-weight: 700;
     color: #3a3636;
   }
   .result-to{
     font-size: 1.5rem;
-    font-weight: 1000;
+    font-weight: 900;
     margin-top: 5px;
     margin-bottom:15px;
   }
   .result-info{
     white-space: pre;
-    font-weight: 500;
+    font-weight: 400;
   }
 }
 
@@ -122,7 +122,7 @@ $brown: #3a3636;
 
   
   h1{
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom:20px;
 
     @include large-up {
@@ -233,7 +233,7 @@ $brown: #3a3636;
     height: 50px;
     border-radius: 5px;
     color: white;
-    font-weight:500;
+    font-weight:400;
     background-color: $blue;
 
 
