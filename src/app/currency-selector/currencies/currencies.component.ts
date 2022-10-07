@@ -1,4 +1,5 @@
-import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Currency} from "../../shared/interface/Currency";
 
 @Component({
   selector: 'app-currencies',
@@ -7,12 +8,11 @@ import {Component, Input, OnInit, ViewChild, ViewContainerRef} from '@angular/co
 })
 export class CurrenciesComponent{
 
-  @Input() selectCurrency;
-  @Input() currency;
+  @Input() selectCurrency: object | any;
+  @Input() currency: Currency | any;
 
 
-  public selectCurrencyFunc(currency){
-    console.log(currency);
+  public selectCurrencyFunc(currency: Currency): void{
     this.selectCurrency(currency);
   }
 
