@@ -18,7 +18,7 @@
 
     <ul [id]="'currenciesList ' + selectorId" (mouseover)="ignoreFocusOut=currencies.length>0"
         (mouseout)="ignoreFocusOut=false" class="dropdown-menu scrollable-menu" role="menu"
-        aria-labelledby="dropdownMenuButton">
+        aria-labelledby="dropdownMenuButton" #currenciesList>
         <li *ngFor="let currency of currencies">
             <app-currencies [currency]="currency" [selectCurrency]="selectCurrency"></app-currencies>
         </li>

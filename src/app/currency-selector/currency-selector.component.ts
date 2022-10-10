@@ -12,17 +12,17 @@ export class CurrencySelectorComponent implements OnInit {
 
   public edited: boolean = true;
   @Input() changeCurrency: object | any;
-  @Input() selectorId: Currency | any;
+  @Input() selectorId: string | any;
 
   public currencies: Currency[] = [];
 
   public selectedCurrency: Currency | undefined;
-  public elementCurrenciesList: HTMLElement | any;
   public findCurrency: Currency | any;
   public ignoreFocusOut: boolean = false;
 
   public noResultsFind: boolean = false;
   @ViewChild('search_input', {static: false}) search_input;
+  @ViewChild('currenciesList', {static: false}) currenciesList;
 
   constructor(private changeDetector: ChangeDetectorRef,  public service: CurrencyService) {
 
@@ -36,7 +36,6 @@ export class CurrencySelectorComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.elementCurrenciesList = document.getElementById('currenciesList ' + this.selectorId)
     this.selectCurrencyOnStart();
   }
 
@@ -59,12 +58,13 @@ export class CurrencySelectorComponent implements OnInit {
 
   ShowDropdown(): void {
     this.edited = false;
-    this.elementCurrenciesList.className = "dropdown-menu scrollable-menu show";
+    this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu show";
+    // this.currenciesList.className = "dropdown-menu scrollable-menu show";
   }
 
   HideDropdown(): void {
     this.edited = true;
-    this.elementCurrenciesList.className = "dropdown-menu scrollable-menu";
+    this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu";
   }
 
 

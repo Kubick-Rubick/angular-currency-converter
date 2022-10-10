@@ -11,7 +11,6 @@ export class CurrenciesComponent{
   @Input() selectCurrency: object | any;
   @Input() currency: Currency | any;
 
-
   public selectCurrencyFunc(currency: Currency): void{
     this.selectCurrency(currency);
   }
