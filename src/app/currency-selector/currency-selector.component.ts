@@ -11,13 +11,15 @@ import {CurrencyService} from "../shared/service/currency.service";
 export class CurrencySelectorComponent implements OnInit {
 
   public edited: boolean = true;
-  @Input() changeCurrency: object | any;
-  @Input() selectorId: string | any;
-
+  //@ts-ignore
+  @Input() changeCurrency: Function;
+  //@ts-ignore
+  @Input() selectorId: string;
+  
   public currencies: Currency[] = [];
-
   public selectedCurrency: Currency | undefined;
-  public findCurrency: Currency | any;
+  //@ts-ignore
+  public findCurrency: string;
   public ignoreFocusOut: boolean = false;
 
   public noResultsFind: boolean = false;
@@ -51,18 +53,18 @@ export class CurrencySelectorComponent implements OnInit {
   selectCurrency = (currency: Currency): void =>{
     this.selectedCurrency = currency;
     this.changeCurrency(currency);
-    this.HideDropdown();
+    this.hideDropdown();
 
     localStorage.setItem(this.selectorId, currency.name);
   }
 
-  ShowDropdown(): void {
+  showDropdown(): void {
     this.edited = false;
     this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu show";
     // this.currenciesList.className = "dropdown-menu scrollable-menu show";
   }
 
-  HideDropdown(): void {
+  hideDropdown(): void {
     this.edited = true;
     this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu";
   }
@@ -70,7 +72,7 @@ export class CurrencySelectorComponent implements OnInit {
 
   dropClick(): void {
     this.findCurrency="";
-    this.ShowDropdown();
+    this.showDropdown();
     this.changeDetector.detectChanges();
     this.search_input.nativeElement.focus();
     this.valueFinding();
@@ -78,16 +80,17 @@ export class CurrencySelectorComponent implements OnInit {
 
   focusOutInput(): void {
     if(!this.ignoreFocusOut)
-      this.HideDropdown();
+      this.hideDropdown();
   }
 
   private selectCurrencyOnStart(): void {
-    let data: string | any;
-    let localData: Currency | any = localStorage.getItem(this.selectorId);
+    let data: Currency | undefined;
+    let localData: string | null = localStorage.getItem(this.selectorId);
+    console.log(this.selectorId);
     if(localData)
-      data = this.service.getCurrencies().find(element => element.name==localData);
+    data = this.service.getCurrencies().find(element => element.name==localData);
     if(!data)
-      data = this.service.getCurrencies().find(element => element.name==(this.selectorId == 'from' ? 'EUR' : 'USD'));
+    data = this.service.getCurrencies().find(element => element.name==(this.selectorId == 'from' ? 'EUR' : 'USD'));
     if(data)
     this.selectCurrency(data);
   }
