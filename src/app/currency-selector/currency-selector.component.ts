@@ -60,13 +60,12 @@ export class CurrencySelectorComponent implements OnInit {
 
   showDropdown(): void {
     this.edited = false;
-    this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu show";
-    // this.currenciesList.className = "dropdown-menu scrollable-menu show";
+    this.currenciesList.className = "dropdown-menu scrollable-menu show";
   }
 
   hideDropdown(): void {
     this.edited = true;
-    this.currenciesList.nativeElement.className = "dropdown-menu scrollable-menu";
+    this.currenciesList.className = "dropdown-menu scrollable-menu";
   }
 
 
@@ -86,7 +85,6 @@ export class CurrencySelectorComponent implements OnInit {
   private selectCurrencyOnStart(): void {
     let data: Currency | undefined;
     let localData: string | null = localStorage.getItem(this.selectorId);
-    console.log(this.selectorId);
     if(localData)
     data = this.service.getCurrencies().find(element => element.name==localData);
     if(!data)

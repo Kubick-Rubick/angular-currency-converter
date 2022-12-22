@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Currency } from '../interface/Currency';
 import { Rates } from '../interface/Rates';
 import { CurrencyName } from '../interface/CurrencyName';
-import { BehaviorSubject } from 'rxjs';
+// import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CurrencyService{
 
-  public entities$: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([]);
+  public entities$: Subject<Currency[]> = new Subject<Currency[]>;
 
   private currencies: Currency[] = [];
   private lastUpdate: string | undefined;
@@ -27,7 +28,7 @@ export class CurrencyService{
     return this.lastUpdate;
   }
 
-  public getCurrenciesPromise(): void{
+  public getCurrencies$(): void{
     if(this.currencies.length == 0) {
       //get rate and short name of currency
       this.http.get<Rates>('https://open.er-api.com/v6/latest/UAH').subscribe(data => {

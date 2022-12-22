@@ -1,5 +1,4 @@
-<div class="container" *ngIf="isDataAvailable">
-<!-- <div class="container" *ngIf="isDataAvailable"> -->
+<div class="container" >
 
   <header class="header-card">
     <h2>Currency Converter</h2>
@@ -16,7 +15,7 @@
   <main>
     <div class="card">
       <h1>Currency Converter</h1>
-      <div>
+      <div *ngIf="isDataAvailable">
         <form name="form-exchange" (ngSubmit)="onSubmit()">
           <div class="form-currency" #formExchange>
             <label>Amount</label>
@@ -43,7 +42,6 @@
             <app-currency-selector #to [selectorId]="'to'" [changeCurrency]="selectTo"></app-currency-selector>
           </div>
 
-          <!-- <div class="submit-btn" [style.width.px]="formExchange.offsetWidth" #submitBtn *ngIf="!isResult"> -->
           <div class="submit-btn" #submitBtn *ngIf="!isResult">
             <button type="submit">Convert</button>
           </div>

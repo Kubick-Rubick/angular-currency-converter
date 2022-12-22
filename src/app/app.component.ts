@@ -5,7 +5,6 @@ import {
   ViewChild,
   ChangeDetectorRef
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Currency} from "./shared/interface/Currency";
 import {CurrencyService} from "./shared/service/currency.service";
 import { Observable } from 'rxjs';
@@ -17,7 +16,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   public title = 'currency-exchange';
 
   public isDataAvailable: boolean = false;
@@ -49,20 +48,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     return this._from!.symbol;
   }
 
-  constructor(private modalService: NgbModal, public service: CurrencyService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(public service: CurrencyService, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.service.getCurrenciesPromise()
+    this.service.getCurrencies$()
     this.curencies$ = this.service.entities$ 
     this.curencies$.subscribe({
       next: (data) => {
-        if(data.length != 0){
           this._from = data[0];
           this.to = data[1];
           this.isDataAvailable = true
           this.baseExchange();
-        }
       },
       error: () =>{
         this.failedToLoad = true;
@@ -73,10 +70,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     //@ts-ignore
     this.amount_value = localAmount ? localAmount : (1).toFixed(2);
   }
-
-  // public open(modal: any): void {
-  //   this.modalService.open(modal);
-  // }
 
   public selectFrom = (currency: Currency): void =>{
     this._from = currency;
@@ -120,7 +113,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     let currencyUSD: Currency | undefined = this.service.getCurrencies().find(item => item.name == 'USD');
     let currencyEUR: Currency | undefined = this.service.getCurrencies().find(item => item.name == 'EUR');
-    // this.currencyEUR
 
     this.rateEUR = (1 / currencyEUR!.rate).toFixed(2);
     this.rateUSD = (1 / currencyUSD!.rate).toFixed(2);
@@ -131,9 +123,5 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isResult = true;
     var date: object = new Date(this.service.getLastUpdate());
     this.lastUpdate = date.toLocaleString()  + " UTC";
-  }
-
-  ngAfterViewInit(): void {
-
   }
 }

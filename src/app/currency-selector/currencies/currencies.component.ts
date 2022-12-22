@@ -7,9 +7,10 @@ import {Currency} from "../../shared/interface/Currency";
   styleUrls: ['../currency-selector.component.scss']
 })
 export class CurrenciesComponent{
-
-  @Input() selectCurrency: object | any;
-  @Input() currency: Currency | any;
+  //@ts-ignore
+  @Input() selectCurrency: Function;
+  //@ts-ignore
+  @Input() currency: Currency;
 
   public selectCurrencyFunc(currency: Currency): void{
     this.selectCurrency(currency);

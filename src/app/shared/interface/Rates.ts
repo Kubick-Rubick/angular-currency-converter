@@ -1,5 +1,4 @@
 export interface Rates {
-  result: string,
+  rates: {[currency_name:string]:number}
   time_last_update_utc:string,
-  rates: {}
 }
